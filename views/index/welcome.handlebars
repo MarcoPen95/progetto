@@ -1,0 +1,27 @@
+<div id="welcome" class="card card-body mb-2">
+    <font face="Verdana"></font><h1 align="center">
+        Welcome to Event Expo
+    </h1></font>
+    <div id="img" align="center">
+        <img src="/immagini/logo.jpg" alt="LOGO" width="150" height="150"></img>
+    </div><br><br><br>
+    <div id="waiting" align="center"><h4><b>Wait a few seconds...</b></h4></div>
+    <a class="nav-link" href="/">
+        <button id="start" type="button" style="display: none" class="btn btn-primary btn-block">Start Now</button>
+    </a>
+</div>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+        $(function(){
+            console.log("sono dentro al welcome page");
+            $("nav").css('display','none');
+            $("#welcome").css('margin-top','200px');
+
+            var socket = window.io.connect('http://localhost:3000/', {transports:['websocket']});
+            // Send an event that activates notification queue
+            socket.emit('notify', $('#email').val());
+            console.log("dopo emit mi trovo");
+        });
+</script>
+

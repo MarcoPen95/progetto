@@ -1,0 +1,52 @@
+.my-nav{
+    background-color: red;
+}
+
+.nav-link{
+    color: white;
+}
+
+.navbar-brand{
+    color: white;
+}
+
+#categorie_annuncio{
+    width: 220px;
+}
+
+#descrizione {
+    height: 228px;
+    width: 500px;
+    resize: none;
+
+}
+
+
+#more{
+    color:white;
+    background-color: red;
+}
+
+input {
+    width:100px;
+    height:20px;
+    vertical-align:top;
+}
+
+select {
+    border:1px solid #ccc;
+    vertical-align:top;
+    height:40px;
+}
+option {
+    color:red;
+    width:100px;
+    text-decoration:underline;
+}
+
+
+input, select, textarea {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}

@@ -1,0 +1,51 @@
+
+
+
+
+<div class ="card card-body mb-2">
+    <div id="map-container" style='width: 460px; height: 300px;' class="map-container z-depth-1-half"></div>
+  <input type = "hidden" id = "mappa" value = "{{evento.luogo.coordinate.[0]}}"  />
+   <input type = "hidden" id = "secondo" value = "{{evento.luogo.coordinate.[1]}}"  />
+  <h4 align="center">{{evento.luogo.coordinate.[0]}}</h4>
+  <p>descrizione</p>
+  <p>{{evento.descrizione}}</p>
+  <p><b>Date:</b> {{ formatDate evento.data 'MMMM Do YYYY'}}</p>
+  <p><b>Ora:</b> {{ formatDate evento.data 'HH:mm'}}</p>
+  <p id="mappa"><b>luogo:</b>  {{evento.luogo.coordinate.[1]}}</p>
+  
+
+  <!-- to make visible join button only if user is logged-->
+  {{#if user}}
+    <form action="/eventi/partecipa/{{evento.id}}?_method=PUT" method="post">
+      <input type="hidden" name="_method" value="PUT">
+      <button type="submit" class="btn btn-primary btn-block" value="Partecipa">
+        Partecipa
+      </button>
+    </form>
+  {{else}}
+    <p>Fai il <a href="/auth/login">log-in</a> per partecipare all'evento</p>
+  {{/if}}
+</div>
+</div>
+
+
+
+
+<script>
+
+   var loc = document.getElementById("mappa").value;
+   console.log(loc);
+   var lok = document.getElementById("secondo").value;
+
+  mapboxgl.accessToken = 'pk.eyJ1IjoibWFyY28xNDE5OTUiLCJhIjoiY2tidDgwc2QyMDdkZzM0cXh5ZmVtOWR5ZiJ9.iZmKTN0ml30-5SGX7MKBNA';
+  const map = new mapboxgl.Map({
+    container: 'map-container',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [loc,lok],
+    zoom: 15
+  });
+  var marker = new mapboxgl.Marker()
+  .setLngLat([loc,lok]).addTo(map);
+
+</script>
+

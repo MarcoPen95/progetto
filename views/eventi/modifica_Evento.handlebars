@@ -1,0 +1,51 @@
+<div class="card card-body">
+  <h3 class="text-center">Modifica Evento</h3>
+  <form action="/eventi/{{evento.id}}?_method=PUT" method="post">
+    <input type="hidden" name="_method" value="PUT">
+    
+        <div class="form-group">
+          <label for="categoria">Categoria:</label>
+          <select id="categoria_annuncio" name="categoria" value = "{{evento.categoria}}">
+            <option value="concerti">concerti</option>
+            <option value="mostre">mostre</option>
+            <option value="teatro">teatro</option>
+            <option value="fiere">fiere</option>
+            <option value="eventi internazionali">eventi internazionali</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="titolo">Titolo</label>
+          <input type="text" name="titolo" class="form-control" value="{{evento.titolo}}" required>
+        </div>
+        <div class="form-group">
+          <label for = "descrizione">Descrizione</label>
+          <textarea  class = "form-control" name="descrizione" placeholder="scrivi qui il testo">{{evento.descrizione}}
+          </textarea>      
+        </div>
+        <div class="form-group">
+         <label for="img">Iserisci link immagine:</label>
+         <input type="text" id="img" name="immagine" value="{{evento.immagine}}">
+        </div>
+        <table>
+        <tr>
+          <td>
+            <label for="date">Date</label>
+          </td>
+          <td>
+            <label for="time">Time</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="date" class="form-control" name="data" value="{{evento.data}}" >
+          </td>
+          <td>
+            <input type="time" class="form-control" name="time" value="{{evento.data}}" >
+          </td>
+        </tr>
+      </table>
+
+        <button type="submit" class="btn btn-primary">Conferma</button>
+        <button type="reset" class="btn btn-danger">reset</button>
+  </form>
+</div>

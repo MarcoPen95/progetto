@@ -1,0 +1,31 @@
+<div class="card card-body mb-2">
+  <div class="card-title"><b>Chat with other users</b></div>
+  {{#if user}}
+  <form id="ws-form" action="">
+    <div id="simple-chat">
+      <h2 id="title"><i class="fa fa-comments"></i> Chat </h2>
+      <div id="chat-window">
+        <div id="output"></div>
+        <div id="type"></div>
+      </div>
+      <input id="message" type="text" placeholder="Message" autocomplete="off"/>
+      <button id="send" type='submit'>Send</button>
+    </div>
+  </form>
+  <input id="handle" type="text" value="{{user.nome}}"/>
+  <input id="email" type="text" value="{{user.email}}"/>
+  {{else}}
+    <p>Please <a href="/auth/login">log-in</a> to use the chat</p>
+  {{/if}}
+</div>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+      /********** Handle Chat Message throw WebSocket and Socket.io *********/
+      $(function () {
+        var socket = window.io.connect('http://localhost:3000/', {transports:['websocket']});
+
+        // Send an event that activates chat message's queue and download all prev messages
+        socket.emit('chatstart', $('#email').val());
+      });
+</script>

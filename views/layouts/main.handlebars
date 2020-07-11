@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet' />
+
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+       <link
+        rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+        crossorigin="anonymous"
+    />
+    
+    
+    <link rel="stylesheet" type = "text/css" href="/css/style.css"/>
+    <link rel="stylesheet" type = "text/css" href="/css/chat.css"/>
+    <link rel="stylesheet" type = "text/css" href="/css/prodotto.css"/>
+
+
+
+
+    </head>
+    <body>
+      {{> _navbar}}
+
+        <div class = "container">
+          {{>_notify}}
+          {{>_msg}}
+          {{> _errori}}
+          {{{body}}} 
+          
+        </div>
+
+        <script>
+      CKEDITOR.replace('details',{
+        plugins: 'wysiwygarea,toolbar,basicstyles,link'
+      });
+    </script>
+
+      <!-- jquery and socket.io (to handle chat and notifies) -->
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      /********** Handle NOTIFIES and CHAT throw WebSocket and Socket.io *********/
+      $(function () {
+        var socket = window.io.connect('http://localhost:3000/', {transports:['websocket']});
+
+        /// Notifies Management
+        socket.on($('#email').val()+"ack", function(data){
+            $("#waiting").html("");
+            $('#start').css('display', 'block');
+            $('#notifies').css('display', 'none');
+        });
+
+        socket.on($('#email').val(), function(data){
+          console.log("dentro al socket on email");
+          console.log(data);
+          $('#notifies').prepend('<div class="alert alert-info"><i class="fa fa-comments"></i><strong> ' + data + '</strong></div>');
+          setTimeout(function() { $('#notifies').html(''); }, 10000);
+        });
+
+
+        /// Chat Management
+        $('#ws-form').submit(function(){
+          socket.emit('chat', {
+            message: $('#message').val(),
+            handle: $('#handle').val()
+          });
+          $('#message').val('');
+          return false;
+        });
+
+        $('#message').keypress(function(){
+          socket.emit('typing', $('#handle').val());
+        });
+
+        socket.on("chat"+$('#email').val(), function(data){
+          $('#type').html('');
+          $('#output').append(data.toString());
+          window.scrollTo(0, document.body.scrollHeight);
+          document.getElementById("chat-window").scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('chat', function(data){
+          $('#type').html('');
+          $('#output').append('<p><strong>' + data.handle + ': </strong>' + data.message + '</p>');
+          window.scrollTo(0, document.body.scrollHeight);
+          document.getElementById("chat-window").scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('typing', function(data){
+          $('#type').html('<p><em>' + data + ' is typing a message...</em></p>');
+        });
+      });
+    </script>
+
+
+
+    </body>
+
+</html>
+

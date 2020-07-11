@@ -1,0 +1,56 @@
+<h4>Eventi a cui partecipi</h4>
+<hr>
+<!--mostro eventi a cui partecipo -->
+{{#each eventsjoined}}
+  <div class="card card-body mb-2">
+    <h4 align="center">{{titolo}}</h4>
+    <p><b>Data:</b> {{formatDate date 'MMMM Do YYYY'}}</p>
+    <p><b>Ora:</b> {{formatDate date 'HH:mm'}}</p>
+    <p><b>descrizione:</b>  {{descrizione}}</p>
+    <hr/>
+    <a href="/eventi/show/{{id}}" class="btn btn-dark btn-block mb-2">Read more details</a>
+
+    <form action="/eventi/delete/{{id}}?_method=PUT" method="post">
+      <input type="hidden" name="_method" value="PUT">
+      <button type="submit" class="btn btn-dark btn-block mb-2" value="PUT">
+        Abbandona evento
+      </button>
+    </form>
+  </div>
+{{else}}
+  <p>nessun evento trovato</p>
+{{/each}}
+
+
+
+<!--mostro eventi creati -->
+
+
+
+
+
+<script></script>
+<br/><br/>
+<h4>Eventi creati</h4>
+<hr>
+{{#each mieieventi}}
+<div class="card card-body mb-2">
+  <img src={{immagine}}  width = "200" height = "200" alt="Denim Jeans" style="width:100%">
+  <h1>{{titolo}}</h1>
+  <p class="price">prezzo euro {{prezzo}}</p>
+  <p>{{descrizione}}</p>
+  <a href="/eventi/modifica_evento/{{id}}" class="btn btn-primary btn-block mb-2">
+      <i class="fa fa-pencil"></i> Edit event
+    </a>
+    <form method="post" action="/eventi/{{id}}?_method=DELETE" id="delete-form" >
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit" class="btn btn-danger btn-block" value="Delete">
+        <i class="fa fa-trash"></i> Delete
+      </button>
+    </form>
+</div>
+
+
+{{else}}
+  <p>No events found</p>
+{{/each}}

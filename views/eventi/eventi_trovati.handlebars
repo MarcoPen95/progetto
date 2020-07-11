@@ -1,0 +1,19 @@
+  <!--mostro eventi trovati -->
+
+<script></script>
+<br/><br/>
+<h4 style="text-align:center">Eventi trovati</h4>
+<hr>
+{{#each eventi_trovati}}
+<div class="card">
+  <img src={{immagine}} alt="Denim Jeans" style="width:100%">
+  <h1>{{titolo}}</h1>
+  <p class="luogo">luogo{{luogo}}</p>
+  <p>{{categoria}}</p>
+    <a href="/eventi/show/{{id}}"  id = "more" class="btn btn-primary btn-block mb-2">More..</a>
+</div>
+{{else}}
+  <p>No events found</p>
+{{/each}}
+
+

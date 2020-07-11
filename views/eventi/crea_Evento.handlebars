@@ -1,0 +1,65 @@
+
+
+<div class="row mb-12">
+  <div class="col-md-6 mx-auto">
+    <div class="card card-body">
+      <div><h3 class="text-center">Crea Evento</h3>
+      </div>
+      <form action="crea_Evento" method="post">
+        <div class="form-group">
+          <label for="categoria">Categoria:</label>
+          <select id="categoria_annuncio" name="categoria" value = "{{categoria}}">
+            <option value="concerti">concerti</option>
+            <option value="mostre">mostre</option>
+            <option value="teatro">teatro</option>
+            <option value="fiere">fiere</option>
+            <option value="eventi internazionali">eventi internazionali</option>
+          </select>
+        <div class="form-group">
+          <label for="Titolo">Titolo</label>
+          <input type="text" name="titolo" class="form-control" value="{{titolo}}" required>
+        </div>
+        <div class="form-group">
+          <label for = "descrizione">Descrizione</label>
+          <textarea  class = "form-control" name="descrizione" placeholder="scrivi qui il testo">{{descrizione}}
+          </textarea>
+        </div>
+
+        <div class="form group">
+          <label for="immagine">Inserisci link immagine</label>
+          <input type="text" name="immagine" class="form-control" value="{{immagine}}"> 
+        </div>
+         <div class="form-group">
+      <table>
+        <tr>
+          <td>
+            <label for="date">Data</label>
+          </td>
+          <td>
+            <label for="time">ora</label>
+          </td>
+          <td>
+            <label for="luogo">luogo</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="date" class="form-control" name="data" value="{{data}}" >
+          </td>
+          <td>
+            <input type="time" class="form-control" name="time" value="{{time}}" >
+          </td>
+          <td>
+            <input type="text" class="form-control" name="indirizzo" value="{{indirizzo}}" >
+          </td>
+        </tr>
+      </table>
+
+      
+    </div>
+        <button type="submit" class="btn btn-primary">Conferma</button>
+        <button id="reset"   type="reset" class="btn btn-danger">reset</button>
+      </form>
+    </div>
+  </div>
+</div>
